@@ -109,8 +109,6 @@ python scripts/classification.py kfold --project_name "tutorial_project" --exper
 
 ## Segmentation model pipelines
 
-Differently from the classification pipelines, we implemented segmentation pipelines in a single script for each method (along with Jupyter notebooks for each experimental pipeline). The segmentation pipelines are located in the `experiment_scripts` folder.
+Differently from the classification pipelines, we implemented segmentation pipelines in a single script for each method (along with Jupyter notebooks for each experimental pipeline). The segmentation pipelines are located in the `experiment_scripts` folder: `mask_rcnn.py`, `sam.py`, `slicdbscan.py`.
 
-Each segmentation pipeline expects data annotated with masks (we used the LabelStudio tool for labeling), which are used to train the model. The data is expected to be in the `processed/<project_name>/<preprocess_name>/<datasource_name/images` folder, with JSON annotation files for each image in the `processed/<project_name>/<preprocess_name>/<datasource_name/labels` subfolder.
-
-### TODO
+Each segmentation pipeline expects data annotated with masks (we used the LabelStudio tool for labeling), which are used to train the model. The data is expected to be in the `processed/<project_name>/<preprocess_name>/<datasource_name>/images` folder, with JSON annotation files for each image in the `processed/<project_name>/<preprocess_name>/<datasource_name>/labels` subfolder.
