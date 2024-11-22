@@ -1,0 +1,41 @@
+﻿name: patsa-bil
+channels:
+  - pytorch 
+  - nvidia
+  - radiomics
+  - conda-forge
+dependencies:
+  - albumentations
+  - ipywidgets
+  - jupyter
+  - jupyterlab
+  - lightning
+  - matplotlib
+  - mlflow
+  - numpy
+  - nvtop
+  - opencv
+  - optuna
+  - pandas
+  - psycopg
+  - psycopg2
+  - pydantic
+  - python
+  - python-dotenv
+  - pyradiomics
+  - pytest
+  - pytorch
+  - pytorch-cuda=12.4
+  - scikit-learn
+  - scikit-image
+  - seaborn
+  - segment-anything
+  - torchaudio
+  - torchmetrics
+  - torchvision
+  - tqdm
+  - pip
+  - pip:
+    - bm3d
+    - bm4d
+    - types-tqdm
