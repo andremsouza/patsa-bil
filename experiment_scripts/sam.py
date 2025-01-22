@@ -33,6 +33,7 @@ import torch
 
 from imagelog_ai.features.methodologies.sam.datasets.dataset import SamDataset
 from imagelog_ai.features.methodologies.sam.modules.lit_module import SamModule
+from imagelog_ai.utils.io_functions import json_load
 
 # %% [markdown]
 # ## Constants
@@ -81,36 +82,18 @@ if __name__ == "__main__":
         return x
 
     # Load dataset with sample data
-    project_name: str = "SAMFineTuning"
-    preprocess_name: str = "lstudio"
-    list_datasource_names: list[str] = [
-        "WellD",
-    ]
-    train_list_datasource_names: list[str] = [
-        "WellD",
-    ]
-    val_list_datasource_names: list[str] = [
-        "WellD",
-    ]
-    class_list: list[str] = [
-        "camada condutiva",
-        "fratura condutiva",
-        "fratura induzida",
-        "fratura parcial",
-        "vug",
-    ]
-    others_class_list: list[str] = ["outros"]
-    transform = transform_func
-    target_transform = target_transform_func
+    project_name = "SAM"
+    project_settings = json_load(f"experiment_configs/{project_name}.json")
 
     dataset = SamDataset(
         project_name=project_name,
-        preprocess_name=preprocess_name,
-        list_datasource_names=list_datasource_names,
-        class_list=class_list,
-        others_class_list=others_class_list,
-        transform=transform,
-        target_transform=target_transform,
+        preprocess_name=project_settings["preprocess_name"],
+        list_datasource_names=project_settings["list_datasource_names"],
+        class_list=project_settings["class_list"],
+        others_class_list=project_settings["others_class_list"],
+        background_class=project_settings["background_class"],
+        transform=transform_func,
+        target_transform=target_transform_func,
         target_boxes=True,
         target_labels=True,
         target_masks=True,
@@ -124,12 +107,13 @@ if __name__ == "__main__":
     )
     train_dataset = SamDataset(
         project_name=project_name,
-        preprocess_name=preprocess_name,
-        list_datasource_names=train_list_datasource_names,
-        class_list=class_list,
-        others_class_list=others_class_list,
-        transform=transform,
-        target_transform=target_transform,
+        preprocess_name=project_settings["preprocess_name"],
+        list_datasource_names=project_settings["list_datasource_names"],
+        class_list=project_settings["class_list"],
+        others_class_list=project_settings["others_class_list"],
+        background_class=project_settings["background_class"],
+        transform=transform_func,
+        target_transform=target_transform_func,
         target_boxes=True,
         target_labels=True,
         target_masks=True,
@@ -139,12 +123,13 @@ if __name__ == "__main__":
     train_dataset.dataframe = train_dataframe
     val_dataset = SamDataset(
         project_name=project_name,
-        preprocess_name=preprocess_name,
-        list_datasource_names=val_list_datasource_names,
-        class_list=class_list,
-        others_class_list=others_class_list,
-        transform=transform,
-        target_transform=target_transform,
+        preprocess_name=project_settings["preprocess_name"],
+        list_datasource_names=project_settings["list_datasource_names"],
+        class_list=project_settings["class_list"],
+        others_class_list=project_settings["others_class_list"],
+        background_class=project_settings["background_class"],
+        transform=transform_func,
+        target_transform=target_transform_func,
         target_boxes=True,
         target_labels=True,
         target_masks=True,
@@ -155,14 +140,23 @@ if __name__ == "__main__":
 
     # Create dataloader
     dataloader = DataLoader(
-        dataset, batch_size=1, shuffle=True, num_workers=os.cpu_count() or 0
+        dataset,
+        batch_size=project_settings["batch_size"],
+        shuffle=True,
+        num_workers=os.cpu_count() or 0,
     )
 
     train_dataloader = DataLoader(
-        train_dataset, batch_size=1, shuffle=True, num_workers=os.cpu_count() or 0
+        train_dataset,
+        batch_size=project_settings["batch_size"],
+        shuffle=True,
+        num_workers=os.cpu_count() or 0,
     )
     val_dataloader = DataLoader(
-        val_dataset, batch_size=1, shuffle=False, num_workers=os.cpu_count() or 0
+        val_dataset,
+        batch_size=project_settings["batch_size"],
+        shuffle=False,
+        num_workers=os.cpu_count() or 0,
     )
 
     # Create model

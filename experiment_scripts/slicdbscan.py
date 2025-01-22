@@ -41,6 +41,7 @@ from imagelog_ai.features.methodologies.sam.utils.iou import calc_iou
 from imagelog_ai.features.methodologies.slicdbscan.models.slicdbscan import (
     SLICDBSCANSegmentation,
 )
+from imagelog_ai.utils.io_functions import json_load
 
 # %%
 # Set logging to file
@@ -140,37 +141,19 @@ def target_transform_func(x):
     return x
 
 
-project_name: str = "SLICDBSCANSegmentation"
-preprocess_name: str = "lstudio"
-list_datasource_names: list[str] = [
-    "WellD",
-]
-train_list_datasource_names: list[str] = [
-    "WellD",
-]
-val_list_datasource_names: list[str] = [
-    "WellD",
-]
-class_list: list[str] = [
-    "camada condutiva",
-    "fratura condutiva",
-    "fratura induzida",
-    "fratura parcial",
-    "vug",
-]
-others_class_list: list[str] = ["outros"]
-transform = transform_func
-target_transform = target_transform_func
+project_name = "SLICDBSCAN"
+project_settings = json_load(f"experiment_configs/{project_name}.json")
 # test dataset
 # Using SamDataset from SAM experiments
 dataset = SamDataset(
     project_name=project_name,
-    preprocess_name=preprocess_name,
-    list_datasource_names=list_datasource_names,
-    class_list=class_list,
-    others_class_list=others_class_list,
-    transform=transform,
-    target_transform=target_transform,
+    preprocess_name=project_settings["preprocess_name"],
+    list_datasource_names=project_settings["list_datasource_names"],
+    class_list=project_settings["class_list"],
+    others_class_list=project_settings["others_class_list"],
+    background_class=project_settings["background_class"],
+    transform=transform_func,
+    target_transform=target_transform_func,
     target_boxes=True,
     target_labels=True,
     target_masks=True,
