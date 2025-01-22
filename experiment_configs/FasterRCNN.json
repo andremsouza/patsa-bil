@@ -1,0 +1,22 @@
+{
+	"preprocess_name": "lstudio",
+	"list_datasource_names": [
+		"WellD"
+	],
+	"train_list_datasource_names": [
+		"WellD"
+	],
+	"val_list_datasource_names": [
+		"WellD"
+	],
+	"class_list": [
+		"camada condutiva",
+		"fratura condutiva",
+		"fratura induzida",
+		"fratura parcial",
+		"vug"
+	],
+	"others_class_list": ["outros"],
+	"background_class": true,
+	"batch_size": 1
+}
