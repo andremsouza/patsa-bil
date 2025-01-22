@@ -42,6 +42,8 @@ from imagelog_ai.features.methodologies.mask_rcnn.datasets.dataset import (
 from imagelog_ai.features.methodologies.mask_rcnn.modules.lit_module import (
     LitMaskRCNN,
 )
+from imagelog_ai.utils.io_functions import json_load
+
 
 # %%
 # Load environment variables
@@ -110,38 +112,19 @@ def target_transform_func(x):
     return x
 
 
-project_name: str = "MaskRCNN"
-preprocess_name: str = "lstudio"
-list_datasource_names: list[str] = [
-    "WellD",
-]
-train_list_datasource_names: list[str] = [
-    "WellD",
-]
-val_list_datasource_names: list[str] = [
-    "WellD",
-]
-class_list: list[str] = [
-    "camada condutiva",
-    "fratura condutiva",
-    "fratura induzida",
-    "fratura parcial",
-    "vug",
-]
-others_class_list: list[str] = ["outros"]
-background_class: bool = True
-transform = transform_func
-target_transform = target_transform_func
+project_name = "MaskRCNN"
+project_settings = json_load(f"experiment_configs/{project_name}.json")
+
 # test dataset
 dataset = MaskRCNNDataset(
     project_name,
-    preprocess_name,
-    list_datasource_names,
-    class_list,
-    others_class_list,
-    background_class,
-    transform,
-    target_transform,
+    project_settings["preprocess_name"],
+    project_settings["list_datasource_names"],
+    project_settings["class_list"],
+    project_settings["others_class_list"],
+    project_settings["background_class"],
+    transform=transform_func,
+    target_transform=target_transform_func,
     target_boxes=True,
     target_labels=True,
     target_masks=True,
@@ -247,7 +230,7 @@ pred_masks = torch.concat(
 
 # %%
 # Instantiate Lightning module
-lit_model = LitMaskRCNN(num_classes=2, batch_size=2)
+lit_model = LitMaskRCNN(num_classes=2, batch_size=project_settings["batch_size"])
 print(lit_model)
 
 # %%
@@ -276,14 +259,14 @@ print(output)
 # Instantiate data loaders
 train_dataloader = torch.utils.data.DataLoader(
     train_dataset,
-    batch_size=2,
+    batch_size=project_settings["batch_size"],
     shuffle=True,
     num_workers=4,
     collate_fn=collate_fn,
 )
 val_dataloader = torch.utils.data.DataLoader(
     val_dataset,
-    batch_size=2,
+    batch_size=project_settings["batch_size"],
     shuffle=False,
     num_workers=4,
     collate_fn=collate_fn,
@@ -305,7 +288,7 @@ for batch in val_dataloader:
 # Instantiate Lightning module
 lit_model = LitMaskRCNN(
     num_classes=2,
-    batch_size=2,
+    batch_size=project_settings["batch_size"],
     early_stopping_patience=4,
     lr_scheduler_patience=2,
     learning_rate=1e-5,
