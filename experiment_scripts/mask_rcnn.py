@@ -26,15 +26,14 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import torch
 import torch.nn.functional as F
-import tqdm
-
-# import torchvision
+import torchvision
 from torchvision.models.detection import (
     maskrcnn_resnet50_fpn_v2,
     MaskRCNN_ResNet50_FPN_V2_Weights,
 )
 import torchvision.transforms.v2 as T
 from torchvision.tv_tensors import Mask
+import tqdm
 
 from imagelog_ai.features.methodologies.mask_rcnn.datasets.dataset import (
     MaskRCNNDataset,
