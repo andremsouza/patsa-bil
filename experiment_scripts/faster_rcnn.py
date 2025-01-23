@@ -195,6 +195,9 @@ model.eval()
 image, labels = dataset[0]
 image = image.unsqueeze(0)
 output = model(image)
+# free memory cache
+del model
+torch.cuda.empty_cache()
 
 # %%
 # Plot output
@@ -208,7 +211,10 @@ print(model_output["scores"].shape)
 boxes = model_output["boxes"]
 
 
-def add_masks_to_outputs(outputs: dict, inputs: torch.Tensor, num_classes: int):
+def add_masks_to_outputs(
+    outputs: dict,
+    inputs: torch.Tensor,
+):
     inputs_shape = np.array(inputs.shape)
     masks_shape = np.ones((4,), np.uint16)
     masks_shape[-2:] = inputs_shape[-2:]
@@ -231,7 +237,7 @@ def add_masks_to_outputs(outputs: dict, inputs: torch.Tensor, num_classes: int):
     return outputs
 
 
-add_masks_to_outputs(output, image, 11)
+add_masks_to_outputs(output, image)
 model_output = output[0]
 
 
@@ -337,6 +343,8 @@ trainer = pl.Trainer(
 )
 
 # %%
+# Free memory cache
+torch.cuda.empty_cache()
 # Train model
 trainer.fit(
     lit_model, train_dataloaders=train_dataloader, val_dataloaders=val_dataloader
