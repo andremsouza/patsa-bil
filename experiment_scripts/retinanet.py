@@ -1,4 +1,4 @@
-"""This module contains the Mask R-CNN model training script."""
+"""This module contains the RetinaNet model training script."""
 
 # %% [markdown]
 # # Constants and Imports
@@ -74,7 +74,7 @@ def collate_fn(batch):
 # # Data Loading and Preprocessing
 
 # %% [markdown]
-# ## Mask R-CNN Dataset
+# ## RetinaNet Dataset
 
 
 # %%
@@ -143,13 +143,13 @@ idxs_train, idxs_test = train_test_split(
     np.arange(len(dataset)), test_size=0.2, random_state=0
 )
 train_dataset = copy.deepcopy(dataset)
-train_dataset.dataframe_fasterrcnn = dataset.dataframe_fasterrcnn.copy(deep=True)
-train_dataset.dataframe_fasterrcnn = train_dataset.dataframe_fasterrcnn.iloc[
+train_dataset.dataframe_retinanet = dataset.dataframe_retinanet.copy(deep=True)
+train_dataset.dataframe_retinanet = train_dataset.dataframe_retinanet.iloc[
     idxs_train
 ].reset_index(drop=True)
 val_dataset = copy.deepcopy(dataset)
-val_dataset.dataframe_fasterrcnn = dataset.dataframe_fasterrcnn.copy(deep=True)
-val_dataset.dataframe_fasterrcnn = val_dataset.dataframe_fasterrcnn.iloc[
+val_dataset.dataframe_retinanet = dataset.dataframe_retinanet.copy(deep=True)
+val_dataset.dataframe_retinanet = val_dataset.dataframe_retinanet.iloc[
     idxs_test
 ].reset_index(drop=True)
 
@@ -331,7 +331,7 @@ lit_model = LitRetinaNet(
 )
 # Metrics are logged with MLFlow logger
 mlflow_logger = pl.loggers.MLFlowLogger(
-    experiment_name="FasterRCNN-IMLOGS",
+    experiment_name="RetinaNet-IMLOGS",
     tracking_uri="http://localhost:5000",
     log_model=True,
 )
