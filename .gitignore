@@ -164,4 +164,7 @@ cython_debug/
 # Data
 data/
 # ! Test data
-!data/raww/test_data/
+!data/raw/test_data/
+
+#Ignoring all Pytorch checkpoints
+*.ckpt
