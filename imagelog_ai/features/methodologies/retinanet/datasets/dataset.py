@@ -68,18 +68,18 @@ class RetinaNetDataset(SamDataset):
             masks_location,
             boxes_location,
         )
-        self.dataframe_fasterrcnn = self._build_fasterrcnn_dataframe()
+        self.dataframe_retinanet = self._build_retinanet_dataframe()
 
-    def _build_fasterrcnn_dataframe(self) -> pd.DataFrame:
+    def _build_retinanet_dataframe(self) -> pd.DataFrame:
         # Create datsaet to iterate on image/label files
-        dataframe_fasterrcnn = self.dataframe.copy()
-        dataframe_fasterrcnn = dataframe_fasterrcnn.loc[:, ["image_file", "label_file"]]
+        dataframe_retinanet = self.dataframe.copy()
+        dataframe_retinanet = dataframe_retinanet.loc[:, ["image_file", "label_file"]]
         # Remove duplicates
-        dataframe_fasterrcnn.drop_duplicates(inplace=True)
+        dataframe_retinanet.drop_duplicates(inplace=True)
 
-        return dataframe_fasterrcnn
+        return dataframe_retinanet
 
-    def _load_label_fasterrcnn(self, label_path: str) -> dict:
+    def _load_label_retinanet(self, label_path: str) -> dict:
         data = json_load(label_path)
         # Get masks
         masks = get_masks_from_annotation(data)
@@ -132,7 +132,7 @@ class RetinaNetDataset(SamDataset):
 
     def __getitem__(self, idx: int):
         img = torchvision.io.read_image(
-            self.dataframe_fasterrcnn.iloc[idx]["image_file"]
+            self.dataframe_retinanet.iloc[idx]["image_file"]
         )
         if self.mask_location == "images":
             img = img[0, :, :, :]
@@ -140,8 +140,8 @@ class RetinaNetDataset(SamDataset):
             img = self.transform(img)
 
         if self.list_labels_paths:
-            labels = self._load_label_fasterrcnn(
-                self.dataframe_fasterrcnn.iloc[idx]["label_file"]
+            labels = self._load_label_retinanet(
+                self.dataframe_retinanet.iloc[idx]["label_file"]
             )
             if labels["masks"] is None and self.mask_location == "images":
                 labels["masks"] = tensor_load(self.list_images_paths[idx])[1, :, :, :]
@@ -183,4 +183,4 @@ class RetinaNetDataset(SamDataset):
             return img
 
     def __len__(self) -> int:
-        return len(self.dataframe_fasterrcnn)
+        return len(self.dataframe_retinanet)
