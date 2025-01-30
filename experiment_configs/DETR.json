@@ -1,0 +1,50 @@
+{
+	"preprocess_name": "lstudio",
+	"list_datasource_names": [
+		"WellD"
+	],
+	"train_list_datasource_names": [
+		"WellD"
+	],
+	"val_list_datasource_names": [
+		"WellD"
+	],
+	"class_list": [
+		"camada condutiva",
+		"fratura condutiva",
+		"fratura induzida",
+		"fratura parcial",
+		"vug"
+	],
+	"others_class_list": ["outros"],
+	"background_class": true,
+	"batch_size": 2,
+	"args": {
+		"dataset_file": null,
+		"num_classes": 1,
+		"num_queries": 100,
+		"aux_loss": false,
+		"masks": true,
+		"frozen_weights": null,
+		"bbox_loss_coef": 5,
+		"giou_loss_coef": 2,
+		"mask_loss_coef": 1,
+		"dice_loss_coef": 3,
+		"dec_layers": 6,
+		"eos_coef": 0.1,
+		"lr_backbone": 1e-5,
+		"backbone": "resnet50",
+		"dilation": false,
+		"hidden_dim": 256,
+		"dropout": 0.1,
+		"nheads": 8,
+		"dim_feedforward": 2048,
+		"enc_layers": 6,
+		"pre_norm": false,
+		"set_cost_class": 1,
+		"set_cost_bbox": 5,
+		"set_cost_giou": 2,
+		"position_embedding": "sine"
+	},
+	"checkpoint_path": "https://dl.fbaipublicfiles.com/detr/detr-r50-e632da11.pth"
+}
