@@ -724,7 +724,7 @@ for idx, image_path in enumerate(dataset_images):
     print(f"GT Mask shape: {gt_mask.shape}")
     # Apply SLIC segmentation
     try:
-        slic_superpixels = slicdbscan(image[2].unsqueeze(0))
+        slic_superpixels = slicdbscan(image[0].unsqueeze(0))
     except Exception as exc:
         print(f"Exception: {exc}")
         continue
