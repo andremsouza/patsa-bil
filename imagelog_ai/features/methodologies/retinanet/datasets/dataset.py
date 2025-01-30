@@ -1,4 +1,4 @@
-"""This module contains the MaskRCNNDataset to load images and labels for Mask R-CNN training."""
+"""This module contains the RetinaNetDataset to load images and labels for Mask R-CNN training."""
 
 from typing import Callable, Optional
 
@@ -36,7 +36,7 @@ class RetinaNetDataset(SamDataset):
         masks_location: str = "labels",
         boxes_location: str = "labels",
     ) -> None:
-        """Initialize MaskRCNNDataset.
+        """Initialize RetinaNetDataset.
 
         Args:
             project_name (str): Name of the project.
