@@ -168,3 +168,6 @@ data/
 
 #Ignoring all Pytorch checkpoints
 *.ckpt
+
+# Test figures
+test_figures/

@@ -1,0 +1,22 @@
+{
+	"preprocess_name": "lstudio",
+	"list_datasource_names": [
+		"RaboDeAndorinha"
+	],
+	"train_list_datasource_names": [
+		"RaboDeAndorinha"
+	],
+	"val_list_datasource_names": [
+		"RaboDeAndorinha"
+	],
+	"class_list": [
+		"camada condutiva",
+		"fratura condutiva",
+		"fratura induzida",
+		"fratura parcial",
+		"vug"
+	],
+	"others_class_list": ["outros"],
+	"background_class": true,
+	"batch_size": 2
+}
