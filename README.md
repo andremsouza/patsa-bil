@@ -15,7 +15,7 @@ This repository contains the code and data for the PATSA-BIL project, which focu
 
 ## Citing
 
-If you find this repository useful for your research, please consider citing our paper (accepted):
+If you find this repository useful for your research, please consider citing our paper:
 
 <!-- TODO: Update Citing BibTeX reference-->
 ```latex
