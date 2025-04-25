@@ -1,5 +1,39 @@
 # PATSA-BIL: Pipeline for Automated Texture and Structure Analysis of Borehole Image Logs
 
+This repository contains the code and data for the PATSA-BIL project, which focuses on the automated analysis of borehole image logs. The project includes various preprocessing and classification pipelines, as well as segmentation methods for analyzing borehole images.
+
+<div align="center">
+    <img src="./patsa-bil_workflow.jpg" alt="PATSA-BIL Workflow">
+</div>
+
+## Highlights
+
+- We propose PATSA-BIL, a robust pipeline for analyzing resistivity image log data.
+- PATSA-BIL achieved up to 90% accuracy in texture classification using ViT models.
+- PATSA-BIL with SLIC+DBSCAN outperformed baseline DINOv2 by up to 16% (mAP).
+- A Wilcoxon–Holm analysis confirmed the significance and stability of our approach.
+
+## Citing
+
+If you find this repository useful for your research, please consider citing our paper (accepted):
+
+<!-- TODO: Update Citing BibTeX reference-->
+```latex
+@article{Souza2025,
+  title = {{PATSA}-{BIL}: Pipeline for automated texture and structure analysis of borehole image logs},
+  volume = {278},
+  ISSN = {0957-4174},
+  url = {http://dx.doi.org/10.1016/j.eswa.2025.127345},
+  DOI = {10.1016/j.eswa.2025.127345},
+  journal = {Expert Systems with Applications},
+  publisher = {Elsevier BV},
+  author = {Souza,  André M. and Cruz,  Matheus A. and Braga,  Paola M.C. and Piva,  Rodrigo B. and Dias,  Rodrigo A.C. and Siqueira,  Paulo R. and Trevizan,  Willian A. and de Jesus,  Candida M. and Bazzarella,  Camilla and Monteiro,  Rodrigo S. and Bernardini,  Flavia C. and Fernandes,  Leandro A.F. and de Sousa,  Elaine P.M. and de Oliveira,  Daniel and Bedo,  Marcos},
+  year = {2025},
+  month = jun,
+  pages = {127345}
+}
+```
+
 ## Prerequisites
 
 To install the required packages, you can use either `pip` with a `requirements.txt` file or `conda` with an `environment.yml` file.
